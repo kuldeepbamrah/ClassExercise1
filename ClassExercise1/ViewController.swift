@@ -11,63 +11,76 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var blockToAnimate: UILabel!
-    override func viewDidLoad() {
+    
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-         //Do any additional setup after loading the view.
-        
-//        let viewToAnimate = UIView(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
-//        viewToAnimate.backgroundColor = UIColor.blue
-//        view.addSubview(viewToAnimate)
-
-
-       animateX()
-        //animateY()
-        
-        
-        
-        
-        
-    
-        
-        
-        
-        
-    }
-
-    private func constructPositionAnimation(startingPoint: CGPoint, endPoint: CGPoint, animationDuration: Double, position: String) -> CABasicAnimation {
-        let positionAnimation = CABasicAnimation(keyPath: position)
-        positionAnimation.fromValue = NSValue(cgPoint: startingPoint)
-        positionAnimation.toValue = NSValue(cgPoint: endPoint)
-        positionAnimation.duration = animationDuration
-//        positionAnimation.autoreverses = true
-//        positionAnimation.repeatCount = 1
-        positionAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        return positionAnimation
     }
     
-    
-    func animateX()
+    override func viewDidAppear(_ animated: Bool)
     {
-        let startPoint = CGPoint(x: self.view.frame.minX + 30, y: self.view.frame.minY + 30)
-               let endPoint = CGPoint(x:self.view.frame.minX + 30 , y: (self.view.frame.maxY - 30))
-               let duration: Double = 4.0
-
-        let positionAnimation = constructPositionAnimation(startingPoint: startPoint, endPoint: endPoint, animationDuration: duration, position: "position")
-
-               //viewToAnimate.layer.add(positionAnimation, forKey: "position")
-               blockToAnimate.layer.add(positionAnimation, forKey: "position")
-        animateY()
-        
+        moveDown()
     }
-    func animateY()
+
+   func moveDown()
+   {
+        self.blockToAnimate.frame.origin.x = self.view.safeAreaInsets.left + 10
+        self.blockToAnimate.frame.origin.y = self.view.safeAreaInsets.top
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+            {
+                self.blockToAnimate.frame.origin.y =  self.view.frame.size.height -  self.view.safeAreaInsets.bottom
+            },
+            completion:
+            { finished in self.moveRight()
+            })
+    
+    }
+    
+    func moveUp()
     {
-        let endPoint1 = CGPoint(x: self.view.frame.maxX - 30, y: self.view.frame.maxY - 30)
-        let startPoint1 = CGPoint(x:self.view.frame.minX + 30 , y: (self.view.frame.maxY - 30))
-        let duration1: Double = 4.0
         
-        let positionAnimation1 = constructPositionAnimation(startingPoint: startPoint1, endPoint: endPoint1, animationDuration: duration1,position: "position1")
-        
-        blockToAnimate.layer.add(positionAnimation1, forKey: "position")
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+            {
+                self.blockToAnimate.frame.origin.y = self.view.safeAreaInsets.bottom
+            },
+            completion: { finished in self.moveLeft()
+            })
     }
+    
+    func moveLeft()
+    {
+        
+        self.blockToAnimate.frame.origin.x = self.view.bounds.maxX - 50
+        
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+            {
+                        self.blockToAnimate.frame.origin.x =  self.view.safeAreaInsets.left + 10
+                        
+        
+            },
+            completion: { finished in self.moveDown()
+            })
+        }
+    
+    func moveRight()
+    {
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+                    {
+                        let guide = self.view.safeAreaLayoutGuide
+                        let widht = guide.layoutFrame.size.width
+                        self.blockToAnimate.frame.origin.x = widht - 50
+                        print(self.view.bounds.maxX)
+                        print(widht)
+                        
+        
+                }, completion: { finished in
+                    self.moveUp()
+                }
+           
+        )
+        
+    }
+    
 }
 
