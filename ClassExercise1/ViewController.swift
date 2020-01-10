@@ -36,11 +36,9 @@ class ViewController: UIViewController {
     //function to move down
    func moveDown()
    {
-//        self.blockToAnimate.frame.origin.x = self.view.safeAreaInsets.left + 10
-//        self.blockToAnimate.frame.origin.y = self.view.safeAreaInsets.top
-        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveEaseOut, animations:
             {
-                self.blockToAnimate.frame.origin.y =  self.view.frame.size.height -  self.view.safeAreaInsets.bottom
+                self.blockToAnimate.frame.origin.y =  self.view.frame.size.height -  self.view.safeAreaInsets.bottom - 25
             },
             completion:
            { finished in
@@ -48,6 +46,9 @@ class ViewController: UIViewController {
             {
                 self.moveLeft()
             }
+            
+            
+           
             })
     
     }
@@ -55,11 +56,11 @@ class ViewController: UIViewController {
     //function to move right
     func moveRight()
     {
-        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveEaseOut, animations:
                     {
                         let guide = self.view.safeAreaLayoutGuide
                         let widht = guide.layoutFrame.size.width
-                        self.blockToAnimate.frame.origin.x = widht - 50
+                        self.blockToAnimate.frame.origin.x = widht - 35
     
                     }, completion: { finished in
                         if self.count == 0{
@@ -76,7 +77,7 @@ class ViewController: UIViewController {
     func moveUp()
     {
         
-        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveEaseOut, animations:
             {
                 self.blockToAnimate.frame.origin.y = self.view.safeAreaInsets.bottom
             },
@@ -88,6 +89,7 @@ class ViewController: UIViewController {
                 {
                 self.moveRight()
                 }
+                
             })
     }
     
@@ -95,11 +97,12 @@ class ViewController: UIViewController {
     func moveLeft()
     {
         
-        self.blockToAnimate.frame.origin.x = self.view.bounds.maxX - 50
+        //self.blockToAnimate.frame.origin.x = self.view.bounds.maxX - 40
         
-        UIView.animate(withDuration: 4.0, delay: 0, options: .curveLinear, animations:
+        UIView.animate(withDuration: 4.0, delay: 0, options: .curveEaseOut, animations:
             {
                         self.blockToAnimate.frame.origin.x =  self.view.safeAreaInsets.left + 10
+                    
                         
         
             },
@@ -115,6 +118,9 @@ class ViewController: UIViewController {
                             self.moveUp()
                             }
                         }
+                        
+                        
+                        
                     
             })
         }
