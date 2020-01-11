@@ -26,6 +26,8 @@ class ViewController: UIViewController {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         view.addGestureRecognizer(swipeLeft)
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -42,14 +44,13 @@ class ViewController: UIViewController {
             },
             completion:
            { finished in
-            if self.count == 1
+            if self.sLeft == true
             {
                 self.moveLeft()
             }
             
             
-           
-            })
+    })
     
     }
     
@@ -63,10 +64,10 @@ class ViewController: UIViewController {
                         self.blockToAnimate.frame.origin.x = widht - 35
     
                     }, completion: { finished in
-                        if self.count == 0{
+                        if self.sRight == true{
                         self.moveUp()
                         }
-                        else
+                        if self.sLeft == true
                         {
                         self.moveDown()
                         }
@@ -82,10 +83,10 @@ class ViewController: UIViewController {
                 self.blockToAnimate.frame.origin.y = self.view.safeAreaInsets.bottom
             },
             completion: { finished in
-                if self.count == 0{
+                if self.sRight == true{
                 self.moveLeft()
                 }
-                else
+                if self.sLeft == true
                 {
                 self.moveRight()
                 }
@@ -107,17 +108,17 @@ class ViewController: UIViewController {
         
             },
                        completion: { finished in
-                        if self.count == 0
+                        if self.sRight == true
                        {
                        self.moveDown()
                        }
-                        else
-                        {
-                            if self.sRight == true
-                            {
-                            self.moveUp()
-                            }
-                        }
+//                        else
+//                        {
+//                            if self.sRight == true
+//                            {
+//                            self.moveUp()
+//                            }
+//                        }
                         
                         
                         
@@ -130,22 +131,25 @@ class ViewController: UIViewController {
         let swipeGesture = gesture as UISwipeGestureRecognizer
         switch swipeGesture.direction {
         case UISwipeGestureRecognizer.Direction.right:
-            sRight  = true
+           sRight  = true
             sLeft = false
-            print("right swipe")
-            self.count = 0
+//            print("right swipe")
+//            self.count = 0
+//            //self.moveRight()
             self.moveRight()
+           //self.rotateLeft()
         case UISwipeGestureRecognizer.Direction.left:
             sLeft = true
             sRight = false
-            print("left swipe")
-            self.count = 1
+//            print("left swipe")
+//            self.count = 1
             self.moveUp()
+            //self.rotateLeft()
+            //self.rotateRight()
         default:
             break
         }
     }
-    
     
     
     
