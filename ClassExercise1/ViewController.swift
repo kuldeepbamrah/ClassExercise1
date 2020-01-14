@@ -28,6 +28,8 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(swipeLeft)
         
         
+        
+        
         let pointDownY = self.view.frame.size.height -  self.view.safeAreaInsets.bottom - 25
         
         let guide = self.view.safeAreaLayoutGuide
